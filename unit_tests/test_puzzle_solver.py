@@ -15,7 +15,7 @@ class TestPuzzleReader(unittest.TestCase):
         result = solver.is_full_line(full_line)
 
         # assert
-        assert result == True
+        assert result is True
 
     def test_is_full_line_returns_false_when_not_full_line(self):
         # arrange
@@ -27,4 +27,4 @@ class TestPuzzleReader(unittest.TestCase):
         result = solver.is_full_line(not_full_line)
 
         # assert
-        assert result == False
+        assert result is False
