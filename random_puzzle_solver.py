@@ -18,3 +18,6 @@ class SlightlyBetterThanRandomNonogramSolver:
             return [0]
         else:
             return length_list
+
+    def is_row_solved(self, row_string, row_nums):
+        return self.as_row_nums(row_string) == row_nums
