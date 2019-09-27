@@ -6,7 +6,7 @@ class Grid:
         self.grid = self._build_empty_grid()
 
     def _build_empty_grid(self):
-        grid = [[0] * self.size for _ in range(self.size)]
+        grid = [["."] * self.size for _ in range(self.size)]
         return grid
 
     def insert_row_to_grid(self, row, row_num):
@@ -45,3 +45,9 @@ class Grid:
             row_nums = [x for x in line_string if x]
             all_line_nums.append(row_nums)
         return all_line_nums
+
+    def __str__(self):
+        printed_grid = ""
+        for i in range(self.size):
+            printed_grid = printed_grid + self.get_row_as_string(i) + "\n"
+        return printed_grid
