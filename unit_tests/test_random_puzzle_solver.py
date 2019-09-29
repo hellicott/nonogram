@@ -15,7 +15,7 @@ class TestRandomPuzzleSolver(TestCase):
         row_string = "_XX__"
 
         # act
-        row_nums = solver.as_row_nums(row_string)
+        row_nums = solver._as_row_nums(row_string)
 
         # assert
         assert row_nums == [2]
@@ -28,7 +28,7 @@ class TestRandomPuzzleSolver(TestCase):
         row_string = "_X_XX"
 
         # act
-        row_nums = solver.as_row_nums(row_string)
+        row_nums = solver._as_row_nums(row_string)
 
         # assert
         assert row_nums == [1, 2]
@@ -60,3 +60,30 @@ class TestRandomPuzzleSolver(TestCase):
 
         # assert
         assert result is False
+
+    def test_solve_row_returns_solved_row(self):
+        # arrange
+        reader = mock.create_autospec(PuzzleReader)
+        reader.get_row_and_column_numbers.return_value = "value 1", "value 2"
+        solver = Solver(Grid(5), reader)
+        row_string = "_X_XX"
+        row_nums = [2, 2]
+
+        # act
+        row = solver.solve_row(row_string, row_nums)
+
+        # assert
+        assert row == "XX_XX"
+
+    def test_calculate_percentage_returns_correct_percentage(self):
+        # arrange
+        reader = mock.create_autospec(PuzzleReader)
+        reader.get_row_and_column_numbers.return_value = "value 1", "value 2"
+        solver = Solver(Grid(5), reader)
+        row_nums = [2, 2]
+
+        # act
+        percentage = solver.calculate_percentage(row_nums)
+
+        # assert
+        assert percentage == 80
