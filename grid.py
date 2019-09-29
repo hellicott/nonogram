@@ -10,16 +10,18 @@ class Grid:
         return grid
 
     def insert_row_to_grid(self, row, row_num):
-        i = 0
+        col_num = 0
         for value in row:
-            self.insert_value_to_grid(value, row_num, i)
-            i += 1
+            if value != ".":
+                self.insert_value_to_grid(value, row_num, col_num)
+            col_num += 1
 
     def insert_column_to_grid(self, column, column_num):
-        i = 0
+        row_num = 0
         for value in column:
-            self.insert_value_to_grid(value, i, column_num)
-            i += 1
+            if value != ".":
+                self.insert_value_to_grid(value, row_num, column_num)
+            row_num += 1
 
     def insert_value_to_grid(self, value, row, column):
         self.grid[row][column] = value
