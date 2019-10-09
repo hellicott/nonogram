@@ -12,14 +12,14 @@ class Grid:
     def insert_row_to_grid(self, row, row_num):
         col_num = 0
         for value in row:
-            if value != ".":
+            if value == "X":
                 self.insert_value_to_grid(value, row_num, col_num)
             col_num += 1
 
     def insert_column_to_grid(self, column, column_num):
         row_num = 0
         for value in column:
-            if value != ".":
+            if value == "X":
                 self.insert_value_to_grid(value, row_num, column_num)
             row_num += 1
 

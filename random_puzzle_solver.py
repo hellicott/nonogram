@@ -9,14 +9,18 @@ class SlightlyBetterThanRandomNonogramSolver:
         self.grid = grid
         self.row_nums, self.col_nums = reader.get_row_and_column_numbers()
 
-    # def solve(self):
-    #     for i in range(self.grid.size):
-
+    def solve(self):
+        self.fill_definite_squares_in_row()
+        self.fill_definite_squares_in_column()
+        for i in range(self.grid.size):
+            solved_row = self.solve_row(self.grid.get_row_as_string(i), self.row_nums[i])
+            self.grid.insert_row_to_grid(solved_row, i)
+        print(self.grid)
 
     def solve_row(self, original_string, row_nums):
         print("Original String: {}".format(original_string))
-        row_string = original_string
         percentage = self.calculate_percentage(original_string, row_nums)
+        row_string = original_string.replace(".", "_")
         num_of_tries = 0
         while not self.is_row_solved(row_string, row_nums):
             num_of_tries += 1
@@ -51,7 +55,7 @@ class SlightlyBetterThanRandomNonogramSolver:
 
     @staticmethod
     def _as_row_nums(row_string):
-        split_list = row_string.replace(".", "").split("_")
+        split_list = row_string.split("_")
         length_list = [len(x) for x in split_list]
         while 0 in length_list:
             length_list.remove(0)
@@ -77,8 +81,8 @@ class SlightlyBetterThanRandomNonogramSolver:
 
     def find_definite_squares_in_line(self, line_numbers):
         line_string = ""
-        forwards_line = self.get_numbers_as_line(line_numbers)
-        backwards_line = forwards_line[::-1]
+        forwards_line = self.trim(self.get_numbers_as_line(line_numbers))
+        backwards_line = self.trim(self.get_numbers_as_line(reversed(line_numbers)))[::-1]
         for i in range(self.grid.size):
             total = forwards_line[i] + backwards_line[i]
             if total > 1:
@@ -87,18 +91,22 @@ class SlightlyBetterThanRandomNonogramSolver:
                 line_string += "."
         return line_string
 
-    def get_numbers_as_line(self, numbers):
+    def trim(self, line_list):
+        smaller_by = self.grid.size - len(line_list)
+        if smaller_by > 0:
+            line_list.extend([0] * smaller_by)
+            new_line_list = line_list[:]
+        else:
+            new_line_list = line_list[0:self.grid.size]
+        return new_line_list
+
+    @staticmethod
+    def get_numbers_as_line(numbers):
         line_list = []
         for number in numbers:
             line_list.extend([1] * number)
             line_list.extend([0] * 1)
-        # make line correct length
-        if len(line_list) > self.grid.size:
-            line_list = line_list[0:self.grid.size]
-        elif len(line_list) < self.grid.size:
-            diff = self.grid.size - len(line_list)
-            line_list.extend([0] * diff)
-        return line_list
+        return line_list[:-1]
 
 
 def main():
@@ -106,7 +114,7 @@ def main():
     path = r"/home/hannah/Documents/FunProjects/Challenges/nonogram/test_nonogram_5x5.json"
     reader = PuzzleReader(path)
     solver = SlightlyBetterThanRandomNonogramSolver(grid, reader)
-    solver.solve_row("X....", solver.row_nums[1])
+    solver.solve()
 
 
 if __name__ == "__main__":

@@ -128,7 +128,7 @@ class TestRandomPuzzleSolver(TestCase):
         definite = solver.find_definite_squares_in_line(numbers)
 
         # assert
-        assert definite == ".X.X."
+        assert definite == ".X..."
 
     def test_fill_definite_squares_in_row(self):
         # arrange
