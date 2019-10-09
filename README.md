@@ -1,7 +1,7 @@
 # nonogram solver
 First attempt at a nonogram solver
 
-The approach is a 'slightly better than random' algorithm7
+The approach is a 'slightly better than random' algorithm
 
 It starts by finding the squares which definitely must be filled. by checking each row and column
 
