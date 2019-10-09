@@ -9,6 +9,7 @@ class PuzzleSolver:
         self.row_nums = None
         self.column_nums = None
         self.size = grid.size
+        self.solved_rows = []
 
     def solve_puzzle_from_file(self, file_path):
         reader = PuzzleReader(file_path)
@@ -30,13 +31,13 @@ class PuzzleSolver:
     def find_definite_squares_in_line(self, line):
         line_list = []
         forwards_line = self.get_numbers_as_line(line)
-        backwards_line = reversed(forwards_line)
+        backwards_line = forwards_line[::-1]
         for i in range(self.size):
             sum = forwards_line[i] + backwards_line[i]
             if sum > 1:
                 line_list.append("X")
             else:
-                line_list.append("_")
+                line_list.append(".")
         return line_list
 
     def get_numbers_as_line(self, numbers):
@@ -59,3 +60,12 @@ class PuzzleSolver:
     def is_solved(self):
         return self.grid.calculate_line_numbers(row=True) == self.row_nums and \
                self.grid.calculate_line_numbers(row=False) == self.column_nums
+
+    def is_solved_2(self):
+        correct = "XX-XX\n" \
+                  "XX-XX\n" \
+                  "-----\n" \
+                  "X---X\n" \
+                  "-XXX-\n"
+        print(correct)
+        return str(self.grid) == correct

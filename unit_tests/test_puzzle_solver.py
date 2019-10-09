@@ -9,7 +9,7 @@ class TestPuzzleReader(unittest.TestCase):
 
     def test_is_full_line_returns_true_when_full_line(self):
         # arrange
-        solver = PuzzleSolver()
+        solver = PuzzleSolver(Grid(10))
         solver.size = 10
         full_line = [4, 5]
 
@@ -21,7 +21,7 @@ class TestPuzzleReader(unittest.TestCase):
 
     def test_is_full_line_returns_false_when_not_full_line(self):
         # arrange
-        solver = PuzzleSolver()
+        solver = PuzzleSolver(Grid(10))
         solver.size = 10
         not_full_line = [4, 4]
 
