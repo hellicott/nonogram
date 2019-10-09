@@ -3,7 +3,7 @@ First attempt at a nonogram solver
 
 The approach is a 'slightly better than random' algorithm
 
-It starts by finding the squares which definitely must be filled. by checking each row and column
+It starts by finding the squares which definitely must be filled by checking each row and column
 
 It then goes through each row and calculates the number of squares yet to be filled, and the number of squares that need to be filled and randomly fills the squares with that ratio
 
